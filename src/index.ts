@@ -79,12 +79,17 @@ const main = async (): Promise<void> => {
         }
 
         process.links.push(...getStageLinks(stage))
+
+        if (stage.type === "Data" || stage.type === "Collection") {
+            process.dataMap[stage.name] = stage.id
+        }
     }
     // console.log(parsedData.process.stage[0])
 
     output(process);
 
-    console.log(process.links);
+    console.log("debugging:")
+    console.log(process.stagesById);
 
 }
 
@@ -103,6 +108,9 @@ const output = (process: ProcessGraph) => {
             links: process.links.filter((l) => l.pageId === page.id).length
         }))
     )
+    console.log(`Data items discovered: ${Object.keys(process.dataMap).length}`)
+    console.log("-------")
+    console.log('')
 }
 
 main()
