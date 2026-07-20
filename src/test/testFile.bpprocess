@@ -1,0 +1,639 @@
+﻿<process name="Create Orders" version="1.0" bpversion="7.5.1.18099" cpeversion="10.0.136.0" narrative="Open Excel Spreadsheet and create orders to add to a Work Queue" byrefcollection="true" processrunningmessage="" disableversioning="false" preferredid="56264dda-a675-4257-8272-1265f3625be2" published="true" published_type="2">
+  <view>
+    <camerax>35</camerax>
+    <cameray>67</cameray>
+    <zoom version="2">1.25</zoom>
+  </view>
+  <preconditions />
+  <endpoint narrative="" />
+  <subsheet subsheetid="a2715f2e-bcb8-48e0-ad26-f487787ad2f4" type="Normal" published="False">
+    <name>Process Queue</name>
+    <view>
+      <camerax>81</camerax>
+      <cameray>104</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="391141aa-d069-49c3-ac0f-5ff4c235bef3" type="Normal" published="False">
+    <name>Input Order</name>
+    <view>
+      <camerax>52</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca" type="Normal" published="False">
+    <name>Open Centrix</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="342fe0f0-9122-414d-a89b-f186b28fd59e" type="Normal" published="False">
+    <name>Close Centrix</name>
+    <view>
+      <camerax>0</camerax>
+      <cameray>0</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <subsheet subsheetid="8bc6ed8d-112a-4720-b289-054f2b5ce279" type="Normal" published="False">
+    <name>Pull Excel Data</name>
+    <view>
+      <camerax>38</camerax>
+      <cameray>63</cameray>
+      <zoom version="2">1.25</zoom>
+    </view>
+  </subsheet>
+  <stage stageid="77b7b626-d44c-4866-aa48-a2fbcc93f198" name="Start" type="Start">
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="File Path" narrative="File path to pull data from " stage="File Path" />
+    </inputs>
+    <onsuccess>2380da4b-f202-465e-88e4-8d428f7eaa2d</onsuccess>
+  </stage>
+  <stage stageid="7ea40032-3166-4511-b56f-a1a74ce85d8b" name="End" type="End">
+    <display x="15" y="255" />
+  </stage>
+  <stage stageid="2c618acb-3969-4c08-8bcf-ac566ec5463c" name="Stage1" type="ProcessInfo">
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="f56d85b8-c4a1-4167-985b-7c64b76019ef" name="Pull Excel Data" type="SubSheetInfo">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <narrative>Create an excel instance and get Handler</narrative>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="7f5735cd-7a11-4119-81d4-05391dfeced4" name="Start" type="Start">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="File Path" stage="File Path" />
+    </inputs>
+    <onsuccess>1b83267d-0ca1-46b5-8a0f-74d8cd039c0c</onsuccess>
+  </stage>
+  <stage stageid="0e457a84-6248-4f92-b326-a4dccade8250" name="End" type="End">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <display x="15" y="195" />
+    <outputs>
+      <output type="collection" name="Data" narrative="Extracted Data" stage="Data" />
+    </outputs>
+  </stage>
+  <stage stageid="1b83267d-0ca1-46b5-8a0f-74d8cd039c0c" name="MS Excel VBO::Create Instance" type="Action">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <inputs>
+      <input type="flag" name="Enable Events" friendlyname="Enable Events" narrative="Flag to indicate that events should be enabled / disabled on the attached instance - defaulted to True" expr="False" />
+    </inputs>
+    <outputs>
+      <output type="number" name="handle" friendlyname="handle" narrative="An integer which can be used to identify the created instance in subsequent actions" stage="Excel Handle" />
+    </outputs>
+    <onsuccess>ba331306-1976-43e3-870d-11332615fdbc</onsuccess>
+    <resource object="MS Excel VBO" action="Create Instance" />
+  </stage>
+  <stage stageid="ba331306-1976-43e3-870d-11332615fdbc" name="MS Excel VBO::Show" type="Action">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="0" w="90" h="30" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance which should have its window displayed. The default of zero indicates the currently active instance." expr="[Excel Handle]" />
+    </inputs>
+    <onsuccess>f2803525-fdf7-4d9b-bcc9-16348736761e</onsuccess>
+    <resource object="MS Excel VBO" action="Show" />
+  </stage>
+  <stage stageid="811afcc9-f79c-4852-b330-25cd1a13778b" name="Excel Handle" type="Data">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <display x="105" y="-60" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="f2803525-fdf7-4d9b-bcc9-16348736761e" name="MS Excel VBO::Open Workbook" type="Action">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="60" w="90" h="30" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance on which the required workbook should be opened. The default of zero indicates the currently active instance." expr="[Excel Handle]" />
+      <input type="text" name="File name" friendlyname="File name" narrative="The path and name of the file which should be opened." expr="[File Path]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Workbook Name" friendlyname="Workbook Name" narrative="The name used by Excel to identify the workbook - usually this is the file name (without the path)." stage="Workbook Name" />
+    </outputs>
+    <onsuccess>6b0e73aa-45b1-429b-bfcf-d2bde805a0d4</onsuccess>
+    <resource object="MS Excel VBO" action="Open Workbook" />
+  </stage>
+  <stage stageid="9793a5fb-e8e8-4b98-be39-82b671d4ccae" name="Workbook Name" type="Data">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <display x="105" y="60" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="6b0e73aa-45b1-429b-bfcf-d2bde805a0d4" name="MS Excel VBO::Get Worksheet As Collection (Fast)" type="Action">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="105" w="90" h="30" />
+    <outputs>
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data output" stage="Data" />
+    </outputs>
+    <onsuccess>eb84533d-f819-4181-8a0e-cf0a543ecc25</onsuccess>
+    <resource object="MS Excel VBO" action="Get Worksheet As Collection (Fast)" />
+  </stage>
+  <stage stageid="073d3c3b-c506-4d5e-b0e2-e26634443f06" name="Data" type="Collection">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <display x="105" y="105" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="eb84533d-f819-4181-8a0e-cf0a543ecc25" name="MS Excel VBO::Close Instance" type="Action">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="150" />
+    <inputs>
+      <input type="number" name="handle" friendlyname="handle" narrative="The integer handle identifying the instance to be closed. Zero indicates the currently active instance." expr="[Excel Handle]" />
+      <input type="flag" name="Save Changes" friendlyname="Save Changes" narrative="True to save the changes to the open workbooks on the instance, False to discard any changes. Default is False." expr="False" />
+    </inputs>
+    <onsuccess>0e457a84-6248-4f92-b326-a4dccade8250</onsuccess>
+    <resource object="MS Excel VBO" action="Close Instance" />
+  </stage>
+  <stage stageid="a7c4b71c-e6b0-48ba-b03d-4a2d5034507d" name="Pull Excel Data" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" />
+    <inputs>
+      <input type="text" name="File Path" friendlyname="File Path" expr="[File Path]" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Data" friendlyname="Data" narrative="Extracted Data" stage="Data" />
+    </outputs>
+    <onsuccess>b7e43bf7-7dec-4ee9-bd15-29f914d078b1</onsuccess>
+    <processid>8bc6ed8d-112a-4720-b289-054f2b5ce279</processid>
+  </stage>
+  <stage stageid="88e1bbda-2199-4d54-88e5-2ee8b3a04cd3" name="Data" type="Collection">
+    <display x="-150" y="-30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="b7e43bf7-7dec-4ee9-bd15-29f914d078b1" name="Work Queues::Add To Queue" type="Action">
+    <loginhibit onsuccess="true" />
+    <narrative>The Data collection contains the items to be added to the queue. The collection may contain single or multiple rows, with each representing an item to be added.
+
+If there is a failure during the process, the queue will be unchanged - i.e. no rows will be loaded even if the error occurred on the last one.
+
+If Defer Until is specified, the items will not be available to be worked until then. Otherwise, they are available immediately.
+
+If the queue has a key field defined, an item added has key data longer than the maximum permitted 255 characters, an error will occur</narrative>
+    <display x="15" y="75" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue to add items to" expr="&quot;Orders&quot;" />
+      <input type="collection" name="Data" friendlyname="Data" narrative="A collection containing the data, one row for each item to be added" expr="[Data]" />
+      <input type="datetime" name="Defer Until" friendlyname="Defer Until" narrative="Optionally, the date/time the new item(s) should be deferred until" expr="" />
+      <input type="number" name="Priority" friendlyname="Priority" narrative="Optionally, the priority for the new item(s). Lower numbers represent higher priorities. The default is 0." expr="" />
+      <input type="text" name="Tags" friendlyname="Tags" narrative="Optionally, a semi-colon-separated set of tags to apply to the queue item(s)" expr="" />
+      <input type="text" name="Status" friendlyname="Status" narrative="Optionally, the initial status required of the work queue item(s) " expr="" />
+      <input type="number" name="Batch Size" friendlyname="Batch Size" narrative="Optionally, the batch size to use when adding many items to the queue.  A Value of 0 will process all items in one batch.  An empty field will use the default batch size of 1000." expr="">
+        <validator type="BluePrism.AutomateProcessCore.RangeParameterValidation" parameter="0:25000" />
+      </input>
+      <input type="timespan" name="SLA" friendlyname="SLA" narrative="Optionally, the SLA that specifies the agreed-upon response or resolution time for the item(s), indicating the maximum acceptable duration for processing them based on their criticality or urgency.&#xD;&#xA;SLA values are provided as a timespan with a minimum value of 1 second and a maximum value of 999 days, 23 hours, 59 minutes, and 59 seconds.&#xD;&#xA;There is no default value for SLA if one is not provided." expr="" />
+      <input type="datetime" name="SLA Deadline" friendlyname="SLA Deadline" narrative="Optionally, the SLA Deadline specifies the agreed-upon response or resolution time for the item(s),&#xD;&#xA;indicating an explicitly set date for addressing them based on their criticality or urgency.&#xD;&#xA;SLA Deadline values are provided as a DateTime which must be less than 1000 days in the future.&#xD;&#xA;There is no default value for SLA Deadline if one is not provided. This value will override any&#xD;&#xA;value provided in the SLA input." expr="" />
+    </inputs>
+    <outputs>
+      <output type="collection" name="Item IDs" friendlyname="Item IDs" narrative="The IDs of the items which have been added to the queue, in the order of the collection of data passed that was input" stage="" />
+    </outputs>
+    <onsuccess>01f7123e-f848-43bf-a177-230f7bc59fde</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Add To Queue" />
+  </stage>
+  <stage stageid="271adcf8-5561-433d-b946-7cbd9c0cf778" name="File Path" type="Data">
+    <display x="-150" y="15" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">C:\BluePrism\Training\Applications\Windows\Orders.csv</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c7adc8a9-a160-47de-be39-66917125982c" name="File Path" type="Data">
+    <subsheetid>8bc6ed8d-112a-4720-b289-054f2b5ce279</subsheetid>
+    <display x="-165" y="-15" w="90" h="30" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">"C:\BluePrism\Training\Applications\Windows\Orders.csv"</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="54581283-2118-49f3-a484-3f0ae74d999c" name="Process Queue" type="SubSheetInfo">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="70c366bf-2437-4499-94c2-6f9cdc5b7df5" name="Start" type="Start">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>586014bc-167c-4aad-a8ab-ccdbe2f22b9c</onsuccess>
+  </stage>
+  <stage stageid="b0e1fe88-b341-4241-96bf-ba20168d826d" name="Open Centrix" type="SubSheetInfo">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="83bd4dc2-575a-418e-81bd-0782399a19e0" name="Start" type="Start">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>2ce0a84b-e6bb-4de6-86ce-c53e8592f24e</onsuccess>
+  </stage>
+  <stage stageid="cdffa665-73a8-4d24-a642-e12d60c0a646" name="End" type="End">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <display x="15" y="135" />
+  </stage>
+  <stage stageid="2ce0a84b-e6bb-4de6-86ce-c53e8592f24e" name="CDS - Basic Actions::Launch" type="Action">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-60" w="90" h="30" />
+    <onsuccess>1612face-9576-45f5-b713-06b69820f8b8</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Launch" />
+  </stage>
+  <stage stageid="1612face-9576-45f5-b713-06b69820f8b8" name="CDS - Basic Actions::Log In" type="Action">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Staff Number" friendlyname="Staff Number" expr="[User]" />
+      <input type="password" name="Password" friendlyname="Password" expr="[Password]" />
+    </inputs>
+    <onsuccess>14135cbc-a93c-42d4-b866-e49f4bf5f010</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Log In" />
+  </stage>
+  <stage stageid="586014bc-167c-4aad-a8ab-ccdbe2f22b9c" name="Should Stop?" type="Decision">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="15" y="-60" w="90" h="30" />
+    <decision expression="IsStopRequested()" />
+    <ontrue>42f17ea0-f3fe-4dd0-9b14-95c10339f3e0</ontrue>
+    <onfalse>7e76e90a-387f-4b47-bd56-cb5b451100eb</onfalse>
+  </stage>
+  <stage stageid="42f17ea0-f3fe-4dd0-9b14-95c10339f3e0" name="End1" type="End">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="-60" />
+  </stage>
+  <stage stageid="7e76e90a-387f-4b47-bd56-cb5b451100eb" name="Work Queue::Get Next Item" type="Action">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <narrative>This action gets the next item to be worked from the queue, returning its details and locking it so no other case can work it.
+
+Items with higher priorities (lower numerical value) are processed first. Where the priority is the same, the next item is the one that has been in the queue the longest,  is not already locked, and is not already completed.
+
+The Item ID returned is used to make further calls to update the work status for that item. It may be empty, in which case there are no items available. This can mean either a) the queue is empty, or b) the queue is not running. This mechanism can be used to cleanly stop all processes working a particular queue at the end of the next case. Items that have a 'deferred' time set will not be returned unless that time has been reached.</narrative>
+    <display x="15" y="-15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Queue Name" friendlyname="Queue Name" narrative="The name of the queue" expr="&quot;Orders&quot;" />
+      <input type="text" name="Key Filter" friendlyname="Key Filter" narrative="Optionally, a key value to filter by. Only items with this key value will be considered." expr="" />
+      <input type="text" name="Tag Filter" friendlyname="Tag Filter" narrative="Optionally, a tag mask to filter by. This can consist of any number of tag searches - each term can be separated by a semi-colon and they are all applied to the search (ie. they are AND'ed terms not OR'ed terms). For example, &quot;Account: Joint; -Balance: Overdrawn; Card: *Visa*&quot; will include any items which match all the terms, ie. every item must have an 'Account: Joint' tag applied, no item can have a 'Balance: Overdrawn' tag applied, every item must have a tag applied which starts with 'Card: ' and then contains the text 'Visa'." expr="" />
+      <input type="text" name="Sort Order" friendlyname="Sort Order" narrative="Sort order method (Priority, SLA, PriorityAndSLA)" lookupValue="Priority" lookupType="WorkQueueSortTypes" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item retrieved - empty if there are none available." stage="Item ID" />
+      <output type="collection" name="Data" friendlyname="Data" narrative="The data associated with the item - a single collection row." stage="Data" />
+      <output type="text" name="Status" friendlyname="Status" narrative="The status of the item." stage="" />
+      <output type="number" name="Attempts" friendlyname="Attempts" narrative="The number of attempts already made to work this item." stage="" />
+    </outputs>
+    <onsuccess>e615dcc0-bde1-4d5a-89b0-d8ecdf13e330</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Get Next Item" />
+  </stage>
+  <stage stageid="00beba1c-7da5-4062-91d8-ce1ba0f28d32" name="Item ID" type="Data">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="-180" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="698f2459-82d8-453d-8132-54bb57f08724" name="Data" type="Collection">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="-180" y="30" />
+    <datatype>collection</datatype>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e615dcc0-bde1-4d5a-89b0-d8ecdf13e330" name="Has Item?" type="Decision">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="15" y="30" />
+    <decision expression="[Item ID] &lt;&gt; &quot;&quot;" />
+    <ontrue>41c57159-499e-44a3-9ad4-cfee2fc18d2b</ontrue>
+    <onfalse>ba9af0b8-02c2-4d6e-ae49-f5c9334fd635</onfalse>
+  </stage>
+  <stage stageid="ba9af0b8-02c2-4d6e-ae49-f5c9334fd635" name="End2" type="End">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-75" y="30" />
+  </stage>
+  <stage stageid="39701938-9482-4052-881d-9b0cee78981b" name="Work Queues::Mark Completed" type="Action">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as completed, by updating the Completed timestamp and setting Locked to null. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="105" y="195" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+    </inputs>
+    <onsuccess>2c852430-6121-4cea-b1fc-ecb27f612f0b</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Completed" />
+  </stage>
+  <stage stageid="9ae2220e-7e57-499f-9443-6433754ecf4b" name="Work Queues::Mark Exception" type="Action">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <narrative>Marks the item as an exception, optionally retrying it by cloning the item and returning the ID of the clone. The item must be 'owned' by the calling process - i.e. it must have been retrieved using Get Next Item.</narrative>
+    <display x="105" y="240" />
+    <inputs>
+      <input type="text" name="Item ID" friendlyname="Item ID" narrative="The ID of the item to mark" expr="[Item ID]" />
+      <input type="text" name="Exception Reason" friendlyname="Exception Reason" narrative="A description of the reason for the exception" expr="ExceptionDetail()" />
+      <input type="flag" name="Retry" friendlyname="Retry" narrative="Whether or not to retry the item, up to the maximum number of attempts specified for the queue. Optional - if not specified, the item will be retried" expr="" />
+      <input type="flag" name="Keep Locked" friendlyname="Keep Locked" narrative="Whether or not the clone of the item should remain locked after the exception has been registered and the item is retried. Optional - default is False" expr="" />
+    </inputs>
+    <outputs>
+      <output type="text" name="New Item ID" friendlyname="New Item ID" narrative="The Item ID of the newly cloned item. This item will be locked if 'Keep Locked' is True. This will be empty if no item was cloned (ie. the item was not retried." stage="" />
+    </outputs>
+    <onsuccess>4dfceac8-5316-4d42-a00c-c8d3f65446b8</onsuccess>
+    <resource object="Blueprism.Automate.clsWorkQueuesActions" action="Mark Exception" />
+  </stage>
+  <stage stageid="2c852430-6121-4cea-b1fc-ecb27f612f0b" name="Anchor2" type="Anchor">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="195" w="10" h="10" />
+    <onsuccess>3ed33e28-3737-44b8-bd71-76b5e9282597</onsuccess>
+  </stage>
+  <stage stageid="3ed33e28-3737-44b8-bd71-76b5e9282597" name="Anchor4" type="Anchor">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="180" y="-60" w="10" h="10" />
+    <onsuccess>586014bc-167c-4aad-a8ab-ccdbe2f22b9c</onsuccess>
+  </stage>
+  <stage stageid="01f7123e-f848-43bf-a177-230f7bc59fde" name="Process Queue" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="135" />
+    <onsuccess>6b2c0885-e22f-4927-9a4f-a650e38382a0</onsuccess>
+    <processid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</processid>
+  </stage>
+  <stage stageid="14135cbc-a93c-42d4-b866-e49f4bf5f010" name="CDS - Basic Actions::Goto Orders" type="Action">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="45" w="90" h="30" />
+    <onsuccess>13c542d3-a7c0-4c49-ac47-b915091611b2</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Goto Orders" />
+  </stage>
+  <stage stageid="5c7329b5-78b9-4433-bb8e-d1334323be2e" name="Close Centrix" type="SubSheetInfo">
+    <subsheetid>342fe0f0-9122-414d-a89b-f186b28fd59e</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="a5d53f75-a807-46bb-80a3-ed6de8d8bf2b" name="Start" type="Start">
+    <subsheetid>342fe0f0-9122-414d-a89b-f186b28fd59e</subsheetid>
+    <display x="15" y="-105" />
+    <onsuccess>b10d3252-2101-4025-aab0-269828d817cf</onsuccess>
+  </stage>
+  <stage stageid="e83ec944-2970-4dcf-88f6-638650d9ac48" name="End" type="End">
+    <subsheetid>342fe0f0-9122-414d-a89b-f186b28fd59e</subsheetid>
+    <display x="15" y="75" />
+  </stage>
+  <stage stageid="b10d3252-2101-4025-aab0-269828d817cf" name="CDS - Order Processing::Detach" type="Action">
+    <subsheetid>342fe0f0-9122-414d-a89b-f186b28fd59e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="30" />
+    <onsuccess>46977661-1a7e-4390-8f7a-8eae1159eb02</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Detach" />
+  </stage>
+  <stage stageid="46977661-1a7e-4390-8f7a-8eae1159eb02" name="CDS - Basic Actions::Close" type="Action">
+    <subsheetid>342fe0f0-9122-414d-a89b-f186b28fd59e</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <onsuccess>e83ec944-2970-4dcf-88f6-638650d9ac48</onsuccess>
+    <resource object="Centrix Data Solutions - Basic Actions" action="Close" />
+  </stage>
+  <stage stageid="2380da4b-f202-465e-88e4-8d428f7eaa2d" name="Open Centrix" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" />
+    <onsuccess>a7c4b71c-e6b0-48ba-b03d-4a2d5034507d</onsuccess>
+    <processid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</processid>
+  </stage>
+  <stage stageid="6b2c0885-e22f-4927-9a4f-a650e38382a0" name="Close Centrix" type="SubSheet">
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" />
+    <onsuccess>7ea40032-3166-4511-b56f-a1a74ce85d8b</onsuccess>
+    <processid>342fe0f0-9122-414d-a89b-f186b28fd59e</processid>
+  </stage>
+  <stage stageid="77138d1d-b2fe-433d-9580-5034f69de07a" name="User" type="Data">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="-15" />
+    <datatype>text</datatype>
+    <initialvalue xml:space="preserve">bp</initialvalue>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="224ab4f5-7d2a-4cef-9e81-38d5cb6c2c69" name="Password" type="Data">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-180" y="30" />
+    <datatype>password</datatype>
+    <initialvalueenc>49,20,7,67,26,91,6,1</initialvalueenc>
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e75377e4-7569-4f96-ba97-e556fa656ee9" name="Block1" type="Block">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-45" y="-90" w="240" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="3710b83c-7563-4f62-859e-c606fc721c5b" name="Recover1" type="Recover">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit />
+    <display x="135" y="-60" />
+    <onsuccess>ac95fefb-cb0f-4a46-a319-2df0512fe60d</onsuccess>
+  </stage>
+  <stage stageid="ac95fefb-cb0f-4a46-a319-2df0512fe60d" name="Exception1" type="Exception">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <display x="240" y="-60" />
+    <exception localized="yes" type="System Exception" detail="&quot;Failed to Log into Centrix&quot;" />
+  </stage>
+  <stage stageid="ab34b510-be67-4e04-b012-2f149e592c28" name="Block2" type="Block">
+    <loginhibit onsuccess="true" />
+    <display x="-15" y="-75" w="210" h="60" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="2c22ca9b-58d3-4b27-825d-3dde6395e874" name="Recover2" type="Recover">
+    <loginhibit />
+    <display x="135" y="-45" />
+    <onsuccess>04c4163d-218c-48bf-afea-05ee1ff4222a</onsuccess>
+  </stage>
+  <stage stageid="04c4163d-218c-48bf-afea-05ee1ff4222a" name="Exception2" type="Exception">
+    <display x="255" y="-45" />
+    <exception localized="yes" type="" detail="" usecurrent="yes" />
+  </stage>
+  <stage stageid="13c542d3-a7c0-4c49-ac47-b915091611b2" name="CDS - Order Processing::Attach" type="Action">
+    <subsheetid>1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="90" w="90" h="30" />
+    <onsuccess>cdffa665-73a8-4d24-a642-e12d60c0a646</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Attach" />
+  </stage>
+  <stage stageid="769faf92-a0f4-4ade-8244-9edee558ada8" name="Input Order" type="SubSheetInfo">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="-195" y="-105" w="150" h="90" />
+  </stage>
+  <stage stageid="6cd02d2e-8520-4f61-8855-20d8db65e5b2" name="Start" type="Start">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="15" y="-105" />
+    <inputs>
+      <input type="text" name="Product Code" stage="Product Code" />
+      <input type="number" name="Quantity" stage="Quantity" />
+      <input type="number" name="Unit Price" stage="Unit Price" />
+      <input type="flag" name="Priority Order" stage="Priority Order" />
+      <input type="text" name="Customer Acct Number" stage="Customer Acct Number" />
+    </inputs>
+    <onsuccess>c8248fb7-a16b-4ca6-b030-84f57ee57453</onsuccess>
+  </stage>
+  <stage stageid="1bb98fa4-f43d-46e7-910c-0c8af4fb3ad1" name="End" type="End">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="15" y="120" />
+    <outputs>
+      <output type="text" name="Confirmation Number" stage="Confirmation Number" />
+    </outputs>
+  </stage>
+  <stage stageid="49416ba3-7f40-43b6-98a2-be771e0bf99a" name="Product Code" type="Data">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="-30" y="-150" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="5d3b835e-d211-4995-a146-0b7c6f7e9c7b" name="Quantity" type="Data">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="30" y="-150" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="76601408-8139-41c4-bf89-2f21e23105df" name="Unit Price" type="Data">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="210" y="-150" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="58cf1b05-3142-4098-8b0f-08da9b7d714c" name="Priority Order" type="Data">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="150" y="-150" />
+    <datatype>flag</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="e13ceda8-e567-4109-8a5c-29cb5b9790bb" name="Customer Acct Number" type="Data">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="90" y="-150" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="c8248fb7-a16b-4ca6-b030-84f57ee57453" name="CDS - Order Processing::Goto New Orders" type="Action">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="-45" w="90" h="60" />
+    <onsuccess>3d642019-9241-4ce3-b7c4-05aa95fd2496</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Goto New Orders" />
+  </stage>
+  <stage stageid="3d642019-9241-4ce3-b7c4-05aa95fd2496" name="CDS - Order Processing::Input Order" type="Action">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="15" w="90" h="30" />
+    <inputs>
+      <input type="text" name="Product Code" friendlyname="Product Code" expr="[Product Code]" />
+      <input type="number" name="Quantity" friendlyname="Quantity" expr="[Quantity]" />
+      <input type="number" name="Unit Price" friendlyname="Unit Price" expr="[Unit Price]" />
+      <input type="flag" name="Priority Order" friendlyname="Priority Order" expr="[Priority Order]" />
+      <input type="text" name="Customer Acct Number" friendlyname="Customer Acct Number" expr="[Customer Acct Number]" />
+    </inputs>
+    <onsuccess>2b5fb04d-8f67-42da-ba47-c10be5207316</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Input Order" />
+  </stage>
+  <stage stageid="2b5fb04d-8f67-42da-ba47-c10be5207316" name="CDS - Order Processing::Order Confirmation" type="Action">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="15" y="60" w="90" h="30" />
+    <outputs>
+      <output type="text" name="Confirmation Number" friendlyname="Confirmation Number" stage="Confirmation Number" />
+    </outputs>
+    <onsuccess>1bb98fa4-f43d-46e7-910c-0c8af4fb3ad1</onsuccess>
+    <resource object="Centrix Data Solutions - Order Processing" action="Order Confirmation" />
+  </stage>
+  <stage stageid="ec106344-ce06-4951-9418-998f0654981b" name="Confirmation Number" type="Data">
+    <subsheetid>391141aa-d069-49c3-ac0f-5ff4c235bef3</subsheetid>
+    <display x="-75" y="60" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="41c57159-499e-44a3-9ad4-cfee2fc18d2b" name="Input Order" type="SubSheet">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="15" y="195" />
+    <inputs>
+      <input type="text" name="Product Code" friendlyname="Product Code" expr="[Data.Product Code]" />
+      <input type="number" name="Quantity" friendlyname="Quantity" expr="[Data.Quantity]" />
+      <input type="number" name="Unit Price" friendlyname="Unit Price" expr="[Data.Unit Price]" />
+      <input type="flag" name="Priority Order" friendlyname="Priority Order" expr="[Data.Priority Order]" />
+      <input type="text" name="Customer Acct Number" friendlyname="Customer Acct Number" expr="[Data.Customer Acct Number]" />
+    </inputs>
+    <outputs>
+      <output type="text" name="Confirmation Number" friendlyname="Confirmation Number" stage="Confirmation Number" />
+    </outputs>
+    <onsuccess>39701938-9482-4052-881d-9b0cee78981b</onsuccess>
+    <processid>391141aa-d069-49c3-ac0f-5ff4c235bef3</processid>
+  </stage>
+  <stage stageid="d44b666d-2f16-44e1-89d5-9af2de7eeb9c" name="Confirmation Number" type="Data">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <display x="-60" y="180" />
+    <datatype>text</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+  <stage stageid="3cde8e08-b2d9-43c7-88b7-6f81b4d4e9b0" name="Recover3" type="Recover">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit />
+    <display x="15" y="240" />
+    <onsuccess>9ae2220e-7e57-499f-9443-6433754ecf4b</onsuccess>
+  </stage>
+  <stage stageid="4dfceac8-5316-4d42-a00c-c8d3f65446b8" name="Resume1" type="Resume">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit />
+    <display x="180" y="240" />
+    <onsuccess>2c852430-6121-4cea-b1fc-ecb27f612f0b</onsuccess>
+  </stage>
+  <stage stageid="82b3ea8d-26c2-4d2e-be31-32ace615274c" name="Block3" type="Block">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <loginhibit onsuccess="true" />
+    <display x="-30" y="165" w="90" h="105" />
+    <font family="Segoe UI" size="10" style="Regular" color="7FB2E5" />
+  </stage>
+  <stage stageid="bf368706-6c4c-49ad-a0bd-bff494c2a28c" name="Add Data Validation" type="Note">
+    <subsheetid>a2715f2e-bcb8-48e0-ad26-f487787ad2f4</subsheetid>
+    <narrative>Add Data Validation</narrative>
+    <display x="15" y="90" />
+  </stage>
+  <stage stageid="8e2be106-1ed3-46ab-9e05-c9ffe037e0bd" name="Multi1" type="MultipleCalculation">
+    <loginhibit onsuccess="true" />
+    <display x="135" y="45" />
+    <steps>
+      <calculation expression="&quot;Test&quot;" stage="File Path" />
+      <calculation expression="32" stage="TestNumber" />
+    </steps>
+  </stage>
+  <stage stageid="e9d63f1e-067b-4c9e-9cea-3009423c577a" name="TestNumber" type="Data">
+    <display x="210" y="45" />
+    <datatype>number</datatype>
+    <initialvalue />
+    <private />
+    <alwaysinit />
+  </stage>
+</process>

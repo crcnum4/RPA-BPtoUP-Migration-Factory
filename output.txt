@@ -1,0 +1,51 @@
+
+> rpa-migration-factory@1.0.0 dev
+> tsx src/index.ts
+
+{
+  processName: 'Create Orders',
+  description: 'Open Excel Spreadsheet and create orders to add to a Work Queue',
+  preconditions: '',
+  postConditions: '',
+  pagesById: {
+    main: { id: 'main', name: 'Main', stageIds: [Array] },
+    orphaned: {
+      id: 'orphaned',
+      name: 'Orphaned / Unknown Page',
+      stageIds: [Array]
+    },
+    'a2715f2e-bcb8-48e0-ad26-f487787ad2f4': {
+      id: 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4',
+      name: 'Process Queue',
+      stageIds: [],
+      published: false
+    },
+    '391141aa-d069-49c3-ac0f-5ff4c235bef3': {
+      id: '391141aa-d069-49c3-ac0f-5ff4c235bef3',
+      name: 'Input Order',
+      stageIds: [],
+      published: false
+    },
+    '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca': {
+      id: '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca',
+      name: 'Open Centrix',
+      stageIds: [],
+      published: false
+    },
+    '342fe0f0-9122-414d-a89b-f186b28fd59e': {
+      id: '342fe0f0-9122-414d-a89b-f186b28fd59e',
+      name: 'Close Centrix',
+      stageIds: [],
+      published: false
+    },
+    '8bc6ed8d-112a-4720-b289-054f2b5ce279': {
+      id: '8bc6ed8d-112a-4720-b289-054f2b5ce279',
+      name: 'Pull Excel Data',
+      stageIds: [],
+      published: false
+    }
+  },
+  stagesById: {},
+  links: [],
+  dataMap: {}
+}
