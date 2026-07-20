@@ -36,7 +36,8 @@ export const SINGLE_OUT_STAGE_TYPES = [
      "Note",
      "Alert",
      "Recover",
-     "Resume"
+     "Resume",
+     "SubSheet",
 ] as const
 
 export type SingleOutType = (typeof SINGLE_OUT_STAGE_TYPES)[number]
@@ -166,6 +167,11 @@ export interface RecoverStage extends SingleOutStage {
 
 export interface ResumeStage extends SingleOutStage {type: "Resume"}
 
+export interface SubSheetStage extends SingleOutStage {
+    type: "SubSheet",
+    // TODO: continue here   
+}
+
 export interface NoOutStage extends BaseStage {
     type: NoOutType,
 }
@@ -181,6 +187,7 @@ export interface DataStage extends NoOutStage {
     type: "Data"
     dataType: BPDataType,
     defaultValue: unknown | null,
+    private: boolean
 }
 
 export interface CollectionField {
@@ -191,7 +198,9 @@ export interface CollectionField {
 
 export interface CollectionStage extends NoOutStage {
     type: "Collection"
-    collection: Record<string, CollectionField>
+    dataType: "collection",
+    private: boolean,
+    collection: Record<string, CollectionField> | null // null means no defined structure
 }
 
 export interface EndStage extends NoOutStage {
