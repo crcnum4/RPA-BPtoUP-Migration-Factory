@@ -1,10 +1,11 @@
 import {readFile} from "node:fs/promises";
 import {XMLParser} from 'fast-xml-parser'
-import { ProcessGraph, SubSheetInfoStage } from "./types/bp";
+import { isSingleOutStage, ProcessGraph, SubSheetInfoStage } from "./types/bp";
 import { extractPages } from "./bpStages/extractPages";
 import { toArray } from "./helpers/toArray";
 import { ensurePage } from "./helpers/ensurePage";
 import { convertStage } from "./helpers/convertStage";
+import { getStageLinks } from "./helpers/getStageLinks";
 
 export const BP_MAIN_PAGE = "main"
 export const ORPHANED_PAGE_ID = "orphaned"
@@ -76,25 +77,30 @@ const main = async (): Promise<void> => {
             if (convertedStage.preconditions)
                 page.preconditions = convertedStage.preconditions
         }
+
+        process.links.push(...getStageLinks(stage))
     }
     // console.log(parsedData.process.stage[0])
 
     output(process);
 
-    console.log(process.stagesById);
+    console.log(process.links);
 
 }
 
 const output = (process: ProcessGraph) => {
     console.log(`Parsed Process: ${process.processName}`)
     console.log(`Pages discoverd: ${Object.keys(process.pagesById).length - 1}`)
+    console.log("\t- not including 1 synthetic safety table")
     console.log(`Stages discoverd: ${Object.keys(process.stagesById).length}`)
+    console.log(`Links discovered: ${process.links.length}`)
     console.log("Page to stage breakdown:")
     console.table(
         Object.values(process.pagesById).map(page => ({
             id: page.id,
             name: page.name,
             stages: page.stageIds.length,
+            links: process.links.filter((l) => l.pageId === page.id).length
         }))
     )
 }

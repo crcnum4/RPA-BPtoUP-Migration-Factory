@@ -15,7 +15,7 @@ export const BP_DATA_TYPES = [
     "collection",
     "unknown"
 ] as const
-export type BPDataType = typeof BP_DATA_TYPES[number]
+export type BPDataType = (typeof BP_DATA_TYPES)[number]
 
 export const isBPDataType = (value: unknown): value is BPDataType => {
     return typeof value === "string" && BP_DATA_TYPES.includes(value as BPDataType);
@@ -25,18 +25,25 @@ export const normalizeBPDataType = (value: unknown): BPDataType => {
     return isBPDataType(value) ? value : "unknown"
 }
 
-export type SingleOutType = 
-    | "Process"
-    | "Action"
-    | "Calculation"
-    | "MultipleCalculation"
-    | "Loop"
-    | "Anchor"
-    | "Start"
-    | "Note"
-    | "Alert"
-    | "Recover"
-    | "Resume"
+export const SINGLE_OUT_STAGE_TYPES = [
+    "Process",
+     "Action",
+     "Calculation",
+     "MultipleCalculation",
+     "Loop",
+     "Anchor",
+     "Start",
+     "Note",
+     "Alert",
+     "Recover",
+     "Resume"
+] as const
+
+export type SingleOutType = (typeof SINGLE_OUT_STAGE_TYPES)[number]
+
+export const isSingleOutStage = (stage: BluePrismStage): stage is SingleOutStage => { 
+    return SINGLE_OUT_STAGE_TYPES.includes(stage.type as SingleOutType)
+}
 
 export type NoOutType = 
     | "Block"
@@ -212,6 +219,14 @@ export interface ChoiceBranch {
     out: StageId
 }
 
+export const isDecisionStage = (stage: BluePrismStage): stage is DecisionStage => {
+    return stage.type === "Decision"
+}
+
+export const isChoiceStage = (stage: BluePrismStage): stage is ChoiceStage => {
+    return stage.type === "Choice"
+}
+
 export interface ChoiceStage extends BaseStage {
     type: "Choice",
     branches: ChoiceBranch[]
@@ -249,6 +264,7 @@ export type BluePrismStage =
     | EndStage
     | UnknownStage
     | NoOutStage
+    | SingleOutStage
 
 export interface ProcessPage {
     id: PageId,
