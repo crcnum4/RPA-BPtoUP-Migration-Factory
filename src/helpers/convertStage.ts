@@ -17,6 +17,7 @@ export const convertStage = (rawStage: RawStage, pageId: PageId): BluePrismStage
             return convertSubSheetInfoStage(rawStage, pageId)
         case "Action":
             return convertActionStage(rawStage, pageId)
+        case "Data":
         default: 
             return convertUknownStage(rawStage, pageId)
     }

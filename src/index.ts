@@ -81,7 +81,7 @@ const main = async (): Promise<void> => {
 
     output(process);
 
-    console.log(process.stagesById["1b83267d-0ca1-46b5-8a0f-74d8cd039c0c"]);
+    console.log(process.stagesById);
 
 }
 
