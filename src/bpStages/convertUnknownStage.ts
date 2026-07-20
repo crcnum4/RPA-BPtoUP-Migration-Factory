@@ -7,7 +7,7 @@ export const convertUknownStage = (rawStage: RawStage, pageId: PageId): UnknownS
         id: rawStage["@_stageid"],
         pageId,
         name: rawStage["@_name"],
-        description: rawStage.narrative ?? "",
+        description: rawStage.narrative ? rawStage.narrative["#text"] : "",
         x: parseInt(rawStage.display["@_x"]),
         y: parseInt(rawStage.display["@_y"]),
         raw: rawStage,

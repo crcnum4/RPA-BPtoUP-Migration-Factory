@@ -1,6 +1,6 @@
 import {readFile} from "node:fs/promises";
 import {XMLParser} from 'fast-xml-parser'
-import { ProcessGraph } from "./types/bp";
+import { ProcessGraph, SubSheetInfoStage } from "./types/bp";
 import { extractPages } from "./bpStages/extractPages";
 import { toArray } from "./helpers/toArray";
 import { ensurePage } from "./helpers/ensurePage";
@@ -68,21 +68,35 @@ const main = async (): Promise<void> => {
 
         const stage = convertStage(rawStage, page.id)
         process.stagesById[stage.id] = stage
-    }
 
+        if (stage.type === "SubSheetInfo") {
+            const convertedStage = stage as SubSheetInfoStage
+            if (convertedStage.postconditions)
+                page.postconditions = convertedStage.postconditions
+            if (convertedStage.preconditions)
+                page.preconditions = convertedStage.preconditions
+        }
+    }
+    // console.log(parsedData.process.stage[0])
+
+    output(process);
+
+    console.log(process.stagesById["1b83267d-0ca1-46b5-8a0f-74d8cd039c0c"]);
+
+}
+
+const output = (process: ProcessGraph) => {
+    console.log(`Parsed Process: ${process.processName}`)
+    console.log(`Pages discoverd: ${Object.keys(process.pagesById).length - 1}`)
+    console.log(`Stages discoverd: ${Object.keys(process.stagesById).length}`)
+    console.log("Page to stage breakdown:")
     console.table(
         Object.values(process.pagesById).map(page => ({
             id: page.id,
             name: page.name,
             stages: page.stageIds.length,
-            published: page.published ?? false,
         }))
     )
-
-    // console.log(parsedData.process.stage[0])
-
-    console.log(process.stagesById)
-
 }
 
 main()

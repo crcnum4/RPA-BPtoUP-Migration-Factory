@@ -2,18 +2,18 @@ export type StageId = string;
 export type PageId = string;
 
 export const BP_DATA_TYPES = [
-    "Date",
-    "DateTime",
-    "Flag",
-    "Number",
-    "Password",
-    "Text",
-    "Time",
-    "TimeSpan",
-    "Image",
-    "Binary",
-    "Collection",
-    "Unknown"
+    "date",
+    "datetime",
+    "flag",
+    "number",
+    "password",
+    "text",
+    "time",
+    "timespan",
+    "image",
+    "binary",
+    "collection",
+    "unknown"
 ] as const
 export type BPDataType = typeof BP_DATA_TYPES[number]
 
@@ -22,7 +22,7 @@ export const isBPDataType = (value: unknown): value is BPDataType => {
 }
 
 export const normalizeBPDataType = (value: unknown): BPDataType => {
-    return isBPDataType(value) ? value : "Unknown"
+    return isBPDataType(value) ? value : "unknown"
 }
 
 export type SingleOutType = 
@@ -75,18 +75,20 @@ export interface SingleOutStage extends BaseStage {
 export interface InputProp {
     name: string,
     dataType: BPDataType,
-    valuefrom: string | null
+    expression: string | null
+    description?: string
 }
 
 export interface OutputProp {
     name: string,
     dataType: BPDataType,
+    description?: string
     storeIn: string | null
 }
 
 export interface InputDef {
     name: string,
-    description: string,
+    description?: string,
     dataType: BPDataType,
     storeIn: string | null
 }
@@ -246,6 +248,7 @@ export type BluePrismStage =
     | CollectionStage
     | EndStage
     | UnknownStage
+    | NoOutStage
 
 export interface ProcessPage {
     id: PageId,
