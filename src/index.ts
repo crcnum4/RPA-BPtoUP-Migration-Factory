@@ -1,11 +1,13 @@
 import {readFile} from "node:fs/promises";
 import {XMLParser} from 'fast-xml-parser'
-import { isSingleOutStage, ProcessGraph, SubSheetInfoStage } from "./types/bp";
+import { GLOBAL_SCOPE_ID, isSingleOutStage, ProcessGraph, SubSheetInfoStage } from "./types/bp";
 import { extractPages } from "./bpStages/extractPages";
 import { toArray } from "./helpers/toArray";
 import { ensurePage } from "./helpers/ensurePage";
 import { convertStage } from "./helpers/convertStage";
 import { getStageLinks } from "./helpers/getStageLinks";
+import { addDataStageToMap } from "./helpers/addDataStageToMap";
+import { resolveChoiceDefaults } from "./helpers/resolveChoiceDefaults";
 
 export const BP_MAIN_PAGE = "main"
 export const ORPHANED_PAGE_ID = "orphaned"
@@ -22,7 +24,8 @@ const parser = new XMLParser({
 
 
 const main = async (): Promise<void> => {
-    const xml = await readBluePrismFile("./src/test/testFile.bpprocess");
+    // const xml = await readBluePrismFile("./src/test/testFile.bpprocess");
+    const xml = await readBluePrismFile("./src/test/templateTestFile.bpprocess");
     const parsedData = parser.parse(xml);
     // console.log(parsedData.process.subsheet)
 
@@ -80,35 +83,52 @@ const main = async (): Promise<void> => {
 
         process.links.push(...getStageLinks(stage))
 
-        if (stage.type === "Data" || stage.type === "Collection") {
-            process.dataMap[stage.name] = stage.id
+        /**
+         * 
+         * several stages have to be linked after all stages are processed as they may be processed out of order
+         * or for other reasons
+         * 
+         * must have for direct links:
+         * for each subsheet stage we need to find the endstage ID of that subsheet and create a link to the out of the subsheet
+         * 
+         * musthave for expanded:
+         * for choice we need to match up the ChoiceStartStage defaultOut to the matching ChoiceEndStage based on groupid
+         * for an anchor find links that point to it and then point it to the anchor's out collapsing the anchors.
+         */
+
+        if ((stage.type === "Data" || stage.type === "Collection") && ("private" in stage)) {
+            addDataStageToMap(process, stage) 
         }
     }
     // console.log(parsedData.process.stage[0])
+    resolveChoiceDefaults(process)
 
     output(process);
 
     console.log("debugging:")
-    console.log(process.stagesById);
+    // console.log(process.stagesById);
 
 }
 
 const output = (process: ProcessGraph) => {
     console.log(`Parsed Process: ${process.processName}`)
     console.log(`Pages discoverd: ${Object.keys(process.pagesById).length - 1}`)
-    console.log("\t- not including 1 synthetic safety table")
+    console.log("\t- not including 1 synthetic safety page")
     console.log(`Stages discoverd: ${Object.keys(process.stagesById).length}`)
     console.log(`Links discovered: ${process.links.length}`)
-    console.log("Page to stage breakdown:")
+    console.log(`Data items discovered: ${Object.values(process.dataMap).flatMap(scope => Object.values(scope)).length}`)
+    console.log(`\t- includes ${Object.keys(process.dataMap[GLOBAL_SCOPE_ID] ?? {}).length} global data items`)
+    console.log("")
+    console.log("Page breakdown:")
     console.table(
         Object.values(process.pagesById).map(page => ({
             id: page.id,
             name: page.name,
             stages: page.stageIds.length,
-            links: process.links.filter((l) => l.pageId === page.id).length
+            links: process.links.filter((l) => l.pageId === page.id).length,
+            dataItems: Object.keys(process.dataMap[page.id] ?? {}).length
         }))
     )
-    console.log(`Data items discovered: ${Object.keys(process.dataMap).length}`)
     console.log("-------")
     console.log('')
 }

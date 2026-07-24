@@ -2,6 +2,7 @@
 import { RawStage } from "../helpers/convertStage";
 import { toArray } from "../helpers/toArray";
 import { InputDef, normalizeBPDataType, PageId, DataStage } from "../types/bp";
+import { createBaseStage } from "./CreateBaseStage";
 
 export const extractInitialValue = (rawStage: RawStage) => {
 
@@ -20,13 +21,8 @@ export const extractInitialValue = (rawStage: RawStage) => {
 export const converDataStage = (rawStage: RawStage, pageId: PageId): DataStage => {
 
     const dataStage: DataStage = {
+        ...createBaseStage(rawStage, pageId),
         type: "Data",
-        id: rawStage["@_stageid"],
-        pageId,
-        name: rawStage["@_name"],
-        description: rawStage.narrative ? rawStage.narrative["#text"] : "",
-        x: parseInt(rawStage.display["@_x"]),
-        y: parseInt(rawStage.display["@_y"]),
         dataType: normalizeBPDataType(rawStage.datatype["#text"]),
         defaultValue: extractInitialValue(rawStage),
         private: "private" in rawStage

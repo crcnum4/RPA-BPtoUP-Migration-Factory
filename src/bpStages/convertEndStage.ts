@@ -2,16 +2,12 @@
 import { RawStage } from "../helpers/convertStage"
 import { toArray } from "../helpers/toArray"
 import { PageId, EndStage, OutputDef, normalizeBPDataType } from "../types/bp"
+import { createBaseStage } from "./CreateBaseStage"
 
 export const convertEndStage = (rawStage: RawStage, pageId: PageId): EndStage => {
     const endStage: EndStage = {
+        ...createBaseStage(rawStage, pageId),
         type: "End",
-        id: rawStage["@_stageid"],
-        pageId,
-        name: rawStage["@_name"],
-        description: rawStage.narrative ? rawStage.narrative["#text"] : "",
-        x: parseInt(rawStage.display["@_x"]),
-        y: parseInt(rawStage.display["@_y"]),
         raw: rawStage,
         output: []
     }

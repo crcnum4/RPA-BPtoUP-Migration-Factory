@@ -1,21 +1,20 @@
 import { RawStage } from "../helpers/convertStage";
 import { toArray } from "../helpers/toArray";
-import { InputDef, normalizeBPDataType, PageId, ActionStage, InputProp, OutputProp } from "../types/bp";
+import { InputProp, normalizeBPDataType, OutputProp, PageId, SubSheetStage } from "../types/bp";
 import { createBaseStage } from "./CreateBaseStage";
 
-export const convertActionStage = (rawStage: RawStage, pageId: PageId): ActionStage => {
-    const actionStage: ActionStage = {
+export const convertSubSheetStage = (rawStage: RawStage, pageId: PageId): SubSheetStage => {
+    const subsheetStage: SubSheetStage = {
         ...createBaseStage(rawStage, pageId),
-        type: "Action",
-        resourceObject: rawStage.resource["@_object"],
-        action: rawStage.resource["@_action"],
-        input: [],
-        output: [],
-        out: rawStage.onsuccess["#text"]
+        type: 'SubSheet',
+        inputs: null,
+        outputs: null,
+        destination: rawStage.processid['#text'],
+        out: rawStage.onsuccess['#text']
     }
 
     if ("inputs" in rawStage) {
-        const inputs = toArray(rawStage.inputs.input);
+        const inputs = toArray(rawStage.inputs.input)
         const inputProps: InputProp[] = []
         for (const input of inputs) {
             inputProps.push({
@@ -25,24 +24,23 @@ export const convertActionStage = (rawStage: RawStage, pageId: PageId): ActionSt
                 expression: input["@_expr"] ?? null
             })
         }
-        actionStage.input = inputProps
+        subsheetStage.inputs = inputProps
     }
 
     if ("outputs" in rawStage) {
         const outputs = toArray(rawStage.outputs.output)
-        const outputProps: OutputProp[] = []
+        const outProps: OutputProp[] = []
         for (const output of outputs) {
-            outputProps.push({
+            outProps.push({
                 name: output["@_name"],
                 dataType: normalizeBPDataType(output["@_type"]),
-                description: output["@_narrative"] ?? "",
-                storeIn: output["@_stage"] ?? null
+                description: output["@_narrative"],
+                storeIn: output['@_stage'] ?? null
             })
         }
-        actionStage.output = outputProps
+        subsheetStage.outputs = outProps
     }
 
-
-    return actionStage
+    return subsheetStage;
 
 }

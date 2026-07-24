@@ -1,16 +1,12 @@
 import { RawStage } from "../helpers/convertStage"
 import { CollectionStage, PageId } from "../types/bp"
+import { createBaseStage } from "./CreateBaseStage";
 
 export const convertCollectionStage = (rawStage: RawStage, pageId: PageId): CollectionStage => {
 
     const collectionStage: CollectionStage = {
+        ...createBaseStage(rawStage, pageId),
         type: "Collection",
-        id: rawStage["@_stageid"],
-        pageId,
-        name: rawStage["@_name"],
-        description: rawStage.narrative ? rawStage.narrative["#text"] : "",
-        x: parseInt(rawStage.display["@_x"]),
-        y: parseInt(rawStage.display["@_y"]),
         collection: null,
         private: "private" in rawStage,
         dataType: "collection",

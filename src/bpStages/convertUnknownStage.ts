@@ -1,15 +1,11 @@
 import { RawStage } from "../helpers/convertStage"
 import { PageId, UnknownStage } from "../types/bp"
+import { createBaseStage } from "./CreateBaseStage"
 
 export const convertUknownStage = (rawStage: RawStage, pageId: PageId): UnknownStage => {
     return {
+        ...createBaseStage(rawStage, pageId),
         type: "Unknown",
-        id: rawStage["@_stageid"],
-        pageId,
-        name: rawStage["@_name"],
-        description: rawStage.narrative ? rawStage.narrative["#text"] : "",
-        x: parseInt(rawStage.display["@_x"]),
-        y: parseInt(rawStage.display["@_y"]),
         raw: rawStage,
     }
 }

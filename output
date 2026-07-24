@@ -2,142 +2,391 @@
 > rpa-migration-factory@1.0.0 dev
 > tsx src/index.ts
 
-Parsed Process: Create Orders
-Pages discoverd: 6
-	- not including 1 synthetic safety table
-Stages discoverd: 75
-Links discovered: 24
-Page to stage breakdown:
-┌─────────┬────────────────────────────────────────┬───────────────────────────┬────────┬───────┐
-│ (index) │ id                                     │ name                      │ stages │ links │
-├─────────┼────────────────────────────────────────┼───────────────────────────┼────────┼───────┤
-│ 0       │ 'main'                                 │ 'Main'                    │ 15     │ 2     │
-│ 1       │ 'orphaned'                             │ 'Orphaned / Unknown Page' │ 0      │ 0     │
-│ 2       │ 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4' │ 'Process Queue'           │ 19     │ 4     │
-│ 3       │ '391141aa-d069-49c3-ac0f-5ff4c235bef3' │ 'Input Order'             │ 12     │ 4     │
-│ 4       │ '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca' │ 'Open Centrix'            │ 12     │ 5     │
-│ 5       │ '342fe0f0-9122-414d-a89b-f186b28fd59e' │ 'Close Centrix'           │ 5      │ 3     │
-│ 6       │ '8bc6ed8d-112a-4720-b289-054f2b5ce279' │ 'Pull Excel Data'         │ 12     │ 6     │
-└─────────┴────────────────────────────────────────┴───────────────────────────┴────────┴───────┘
-[
-  {
-    from: '77b7b626-d44c-4866-aa48-a2fbcc93f198',
-    to: '2380da4b-f202-465e-88e4-8d428f7eaa2d',
-    pageId: 'main'
-  },
-  {
-    from: '7f5735cd-7a11-4119-81d4-05391dfeced4',
-    to: '1b83267d-0ca1-46b5-8a0f-74d8cd039c0c',
-    pageId: '8bc6ed8d-112a-4720-b289-054f2b5ce279'
-  },
-  {
-    from: '1b83267d-0ca1-46b5-8a0f-74d8cd039c0c',
-    to: 'ba331306-1976-43e3-870d-11332615fdbc',
-    pageId: '8bc6ed8d-112a-4720-b289-054f2b5ce279'
-  },
-  {
-    from: 'ba331306-1976-43e3-870d-11332615fdbc',
-    to: 'f2803525-fdf7-4d9b-bcc9-16348736761e',
-    pageId: '8bc6ed8d-112a-4720-b289-054f2b5ce279'
-  },
-  {
-    from: 'f2803525-fdf7-4d9b-bcc9-16348736761e',
-    to: '6b0e73aa-45b1-429b-bfcf-d2bde805a0d4',
-    pageId: '8bc6ed8d-112a-4720-b289-054f2b5ce279'
-  },
-  {
-    from: '6b0e73aa-45b1-429b-bfcf-d2bde805a0d4',
-    to: 'eb84533d-f819-4181-8a0e-cf0a543ecc25',
-    pageId: '8bc6ed8d-112a-4720-b289-054f2b5ce279'
-  },
-  {
-    from: 'eb84533d-f819-4181-8a0e-cf0a543ecc25',
-    to: '0e457a84-6248-4f92-b326-a4dccade8250',
-    pageId: '8bc6ed8d-112a-4720-b289-054f2b5ce279'
-  },
-  {
-    from: 'b7e43bf7-7dec-4ee9-bd15-29f914d078b1',
-    to: '01f7123e-f848-43bf-a177-230f7bc59fde',
-    pageId: 'main'
-  },
-  {
-    from: '70c366bf-2437-4499-94c2-6f9cdc5b7df5',
-    to: '586014bc-167c-4aad-a8ab-ccdbe2f22b9c',
-    pageId: 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4'
-  },
-  {
-    from: '83bd4dc2-575a-418e-81bd-0782399a19e0',
-    to: '2ce0a84b-e6bb-4de6-86ce-c53e8592f24e',
-    pageId: '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca'
-  },
-  {
-    from: '2ce0a84b-e6bb-4de6-86ce-c53e8592f24e',
-    to: '1612face-9576-45f5-b713-06b69820f8b8',
-    pageId: '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca'
-  },
-  {
-    from: '1612face-9576-45f5-b713-06b69820f8b8',
-    to: '14135cbc-a93c-42d4-b866-e49f4bf5f010',
-    pageId: '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca'
-  },
-  {
-    from: '7e76e90a-387f-4b47-bd56-cb5b451100eb',
-    to: 'e615dcc0-bde1-4d5a-89b0-d8ecdf13e330',
-    pageId: 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4'
-  },
-  {
-    from: '39701938-9482-4052-881d-9b0cee78981b',
-    to: '2c852430-6121-4cea-b1fc-ecb27f612f0b',
-    pageId: 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4'
-  },
-  {
-    from: '9ae2220e-7e57-499f-9443-6433754ecf4b',
-    to: '4dfceac8-5316-4d42-a00c-c8d3f65446b8',
-    pageId: 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4'
-  },
-  {
-    from: '14135cbc-a93c-42d4-b866-e49f4bf5f010',
-    to: '13c542d3-a7c0-4c49-ac47-b915091611b2',
-    pageId: '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca'
-  },
-  {
-    from: 'a5d53f75-a807-46bb-80a3-ed6de8d8bf2b',
-    to: 'b10d3252-2101-4025-aab0-269828d817cf',
-    pageId: '342fe0f0-9122-414d-a89b-f186b28fd59e'
-  },
-  {
-    from: 'b10d3252-2101-4025-aab0-269828d817cf',
-    to: '46977661-1a7e-4390-8f7a-8eae1159eb02',
-    pageId: '342fe0f0-9122-414d-a89b-f186b28fd59e'
-  },
-  {
-    from: '46977661-1a7e-4390-8f7a-8eae1159eb02',
-    to: 'e83ec944-2970-4dcf-88f6-638650d9ac48',
-    pageId: '342fe0f0-9122-414d-a89b-f186b28fd59e'
-  },
-  {
-    from: '13c542d3-a7c0-4c49-ac47-b915091611b2',
-    to: 'cdffa665-73a8-4d24-a642-e12d60c0a646',
-    pageId: '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca'
-  },
-  {
-    from: '6cd02d2e-8520-4f61-8855-20d8db65e5b2',
-    to: 'c8248fb7-a16b-4ca6-b030-84f57ee57453',
-    pageId: '391141aa-d069-49c3-ac0f-5ff4c235bef3'
-  },
-  {
-    from: 'c8248fb7-a16b-4ca6-b030-84f57ee57453',
-    to: '3d642019-9241-4ce3-b7c4-05aa95fd2496',
-    pageId: '391141aa-d069-49c3-ac0f-5ff4c235bef3'
-  },
-  {
-    from: '3d642019-9241-4ce3-b7c4-05aa95fd2496',
-    to: '2b5fb04d-8f67-42da-ba47-c10be5207316',
-    pageId: '391141aa-d069-49c3-ac0f-5ff4c235bef3'
-  },
-  {
-    from: '2b5fb04d-8f67-42da-ba47-c10be5207316',
-    to: '1bb98fa4-f43d-46e7-910c-0c8af4fb3ad1',
-    pageId: '391141aa-d069-49c3-ac0f-5ff4c235bef3'
-  }
-]
+Parsed Process: Template Create Orders
+Pages discoverd: 10
+	- not including 1 synthetic safety page
+Stages discoverd: 205
+Links discovered: 141
+Data items discovered: 30
+	- includes 9 global data items
+
+Page breakdown:
+┌─────────┬────────────────────────────────────────┬───────────────────────────┬────────┬───────┬───────────┐
+│ (index) │ id                                     │ name                      │ stages │ links │ dataItems │
+├─────────┼────────────────────────────────────────┼───────────────────────────┼────────┼───────┼───────────┤
+│ 0       │ 'main'                                 │ 'Main'                    │ 34     │ 23    │ 2         │
+│ 1       │ 'orphaned'                             │ 'Orphaned / Unknown Page' │ 0      │ 0     │ 0         │
+│ 2       │ '8f814e4a-ce3a-4fd2-8a04-5f2b890ceba7' │ 'Start Up'                │ 30     │ 17    │ 5         │
+│ 3       │ 'cf13a1fa-a9be-4527-973b-e2f66f99d14b' │ 'Close Down'              │ 9      │ 6     │ 0         │
+│ 4       │ 'b749d60a-bded-4d36-b099-3627ed699606' │ 'Populate Queue'          │ 23     │ 13    │ 4         │
+│ 5       │ 'bf57723b-f31f-465f-a44d-6b23e78fd2de' │ 'Data Validation'         │ 23     │ 21    │ 3         │
+│ 6       │ '4f5f8a61-abf2-40dd-8169-d8ab45ffd78c' │ 'Input Order'             │ 17     │ 11    │ 3         │
+│ 7       │ '47e58161-0f42-47cc-aa94-af755a8de010' │ 'Work Step 3'             │ 27     │ 21    │ 2         │
+│ 8       │ 'd31d1c11-61ad-4c49-91a4-44bbf0bf0725' │ 'Mark Item As Completed'  │ 6      │ 4     │ 0         │
+│ 9       │ 'd599353b-a78b-40f4-ab04-255791b86a1a' │ 'Mark Item As Exception'  │ 30     │ 24    │ 2         │
+│ 10      │ '5fd952f0-1be2-40e8-8afa-485524c5a5cd' │ 'Reset Global Data'       │ 6      │ 1     │ 0         │
+└─────────┴────────────────────────────────────────┴───────────────────────────┴────────┴───────┴───────────┘
+-------
+
+debugging:
+{
+  id: 'a08fa84e-da3f-447e-80f1-1db9c2935d76',
+  pageId: 'd599353b-a78b-40f4-ab04-255791b86a1a',
+  name: 'Previous Exception Detail',
+  description: '',
+  x: -225,
+  y: 165,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: false
+}
+{
+  id: '279f2417-29f4-4931-9039-5d9693cd6b93',
+  pageId: 'd599353b-a78b-40f4-ab04-255791b86a1a',
+  name: 'Consecutive Exception Count',
+  description: '',
+  x: -225,
+  y: 195,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 0,
+  private: false
+}
+{
+  id: '36455e9b-9b0b-4078-b5b2-338e1aab1f84',
+  pageId: 'd599353b-a78b-40f4-ab04-255791b86a1a',
+  name: 'Consecutive Exception Limit',
+  description: '',
+  x: -225,
+  y: 225,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 3,
+  private: true
+}
+{
+  id: '09fc131c-2803-4daf-b8cf-351f28b78783',
+  pageId: 'd599353b-a78b-40f4-ab04-255791b86a1a',
+  name: 'New Item ID',
+  description: '',
+  x: -225,
+  y: 105,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: true
+}
+{
+  id: '131b5818-75e5-49ed-9fd5-4d8a51ce52f1',
+  pageId: 'main',
+  name: 'Item ID',
+  description: '',
+  x: -165,
+  y: 345,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: false
+}
+{
+  id: '2d0552e3-8ed7-4090-b123-2fbe46f2918e',
+  pageId: 'main',
+  name: 'Item Data',
+  description: '',
+  x: -165,
+  y: 300,
+  type: 'Collection',
+  collection: null,
+  private: false,
+  dataType: 'collection'
+}
+{
+  id: 'ab543cd9-eb36-48bb-869d-f0e87751767b',
+  pageId: 'main',
+  name: 'Item Status',
+  description: '',
+  x: -165,
+  y: 375,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: false
+}
+{
+  id: '3615f299-65d4-4b0b-ba12-72bd84993bf8',
+  pageId: 'main',
+  name: 'Item Attempts',
+  description: '',
+  x: -165,
+  y: 405,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: null,
+  private: false
+}
+{
+  id: 'd08c5e70-1fd1-416b-9fdc-df51ccc54906',
+  pageId: '5fd952f0-1be2-40e8-8afa-485524c5a5cd',
+  name: 'Exception Type',
+  description: '',
+  x: -165,
+  y: -15,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: false
+}
+{
+  id: '7ec266b2-b0c3-4dca-9e5b-f4cc61966dfa',
+  pageId: '5fd952f0-1be2-40e8-8afa-485524c5a5cd',
+  name: 'Exception Detail',
+  description: '',
+  x: -165,
+  y: 15,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: false
+}
+{
+  id: 'd64ced1f-6499-41a5-b006-5b03a3bd4ed0',
+  pageId: 'main',
+  name: 'Stop After Time',
+  description: 'Used by the process to decide whether to keep working or close itself down. This value can be modified from Control Room to bring a session to an early finish.',
+  x: -165,
+  y: 135,
+  type: 'Data',
+  dataType: 'time',
+  defaultValue: '23:25:00',
+  private: true
+}
+{
+  id: 'aff8912c-98ae-4bb9-84d5-a2eab0253c71',
+  pageId: 'main',
+  name: 'Stop After Items',
+  description: 'Used by the process to decide whether to keep working or close itself down. This value can be modified from Control Room to bring a session to an early finish.',
+  x: -165,
+  y: 165,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 9999999999,
+  private: true
+}
+{
+  id: 'd303b2cb-0441-445a-8463-956e2863a1d4',
+  pageId: 'main',
+  name: 'Queue Name',
+  description: '',
+  x: -165,
+  y: 45,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: 'Orders',
+  private: false
+}
+{
+  id: 'c46d4291-41ed-4f54-9fce-f5b76838fb18',
+  pageId: 'bf57723b-f31f-465f-a44d-6b23e78fd2de',
+  name: 'Retry Limit',
+  description: '',
+  x: -135,
+  y: 45,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 3,
+  private: true
+}
+{
+  id: 'e7d7779b-4ada-4ae1-9722-512eb475bfcd',
+  pageId: 'bf57723b-f31f-465f-a44d-6b23e78fd2de',
+  name: 'Retry Count',
+  description: '',
+  x: -135,
+  y: 75,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 0,
+  private: true
+}
+{
+  id: '6d17105a-27e9-4ac6-8d57-801cf94fefe2',
+  pageId: '4f5f8a61-abf2-40dd-8169-d8ab45ffd78c',
+  name: 'Retry Limit',
+  description: '',
+  x: -195,
+  y: 30,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 3,
+  private: true
+}
+{
+  id: 'c16b3a3f-92d4-4cde-a139-24194f2d7952',
+  pageId: '4f5f8a61-abf2-40dd-8169-d8ab45ffd78c',
+  name: 'Retry Count',
+  description: '',
+  x: -195,
+  y: 60,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 0,
+  private: true
+}
+{
+  id: 'ffdfc19f-b656-4eb8-870d-f179be1f3891',
+  pageId: '47e58161-0f42-47cc-aa94-af755a8de010',
+  name: 'Retry Limit',
+  description: '',
+  x: -225,
+  y: 45,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 3,
+  private: true
+}
+{
+  id: 'b7db49cd-d54b-483a-bf59-413986011ce4',
+  pageId: '47e58161-0f42-47cc-aa94-af755a8de010',
+  name: 'Retry Count',
+  description: '',
+  x: -225,
+  y: 75,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 0,
+  private: true
+}
+{
+  id: '1953f43b-9f8f-4ed2-a456-75dedf98b3da',
+  pageId: '8f814e4a-ce3a-4fd2-8a04-5f2b890ceba7',
+  name: 'Retry Limit',
+  description: '',
+  x: -195,
+  y: 450,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 3,
+  private: true
+}
+{
+  id: 'eb9d5ed0-4ff7-4581-9a77-4268dc3b8f0e',
+  pageId: '8f814e4a-ce3a-4fd2-8a04-5f2b890ceba7',
+  name: 'Retry Count',
+  description: '',
+  x: -195,
+  y: 480,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: 0,
+  private: true
+}
+{
+  id: '9d19b353-fdf3-418a-bdd1-d5e77b88bbee',
+  pageId: '8f814e4a-ce3a-4fd2-8a04-5f2b890ceba7',
+  name: 'App 1 Username',
+  description: '',
+  x: -195,
+  y: 360,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: true
+}
+{
+  id: '816149e3-eaf3-4dee-b734-dc9e8529bf4a',
+  pageId: '8f814e4a-ce3a-4fd2-8a04-5f2b890ceba7',
+  name: 'App 1 Password',
+  description: '',
+  x: -195,
+  y: 390,
+  type: 'Data',
+  dataType: 'password',
+  defaultValue: null,
+  private: true
+}
+{
+  id: '3ad922b4-6777-4bb5-ac1f-ce7b29c53eec',
+  pageId: '8f814e4a-ce3a-4fd2-8a04-5f2b890ceba7',
+  name: 'App1 Credential Name',
+  description: '',
+  x: -195,
+  y: 315,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: 'Centrix',
+  private: true
+}
+{
+  id: 'fee70eb7-dda6-4069-bfec-62e1ea4809d8',
+  pageId: 'b749d60a-bded-4d36-b099-3627ed699606',
+  name: 'Lock Token',
+  description: '',
+  x: -180,
+  y: 15,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: true
+}
+{
+  id: '318bacb1-b302-4f7b-b4e2-8cb1dd422e25',
+  pageId: 'b749d60a-bded-4d36-b099-3627ed699606',
+  name: 'Lock Name',
+  description: '',
+  x: -180,
+  y: -15,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: 'orders.csv',
+  private: true
+}
+{
+  id: '720bfe33-ee2c-4a91-9b27-23767165d347',
+  pageId: 'b749d60a-bded-4d36-b099-3627ed699606',
+  name: 'handle',
+  description: '',
+  x: 105,
+  y: 45,
+  type: 'Data',
+  dataType: 'number',
+  defaultValue: null,
+  private: true
+}
+{
+  id: 'da7452f0-4caa-4162-b710-5dc5e9134d58',
+  pageId: 'b749d60a-bded-4d36-b099-3627ed699606',
+  name: 'Data',
+  description: '',
+  x: -60,
+  y: 135,
+  type: 'Collection',
+  collection: null,
+  private: true,
+  dataType: 'collection'
+}
+{
+  id: '139b77b6-acda-4c73-8e8e-c5122cfaf9ce',
+  pageId: 'bf57723b-f31f-465f-a44d-6b23e78fd2de',
+  name: 'Exception Reason',
+  description: '',
+  x: -135,
+  y: 105,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: true
+}
+{
+  id: 'fd3b73ca-79a7-41f5-8eea-b0e60a257351',
+  pageId: '4f5f8a61-abf2-40dd-8169-d8ab45ffd78c',
+  name: 'Confirmation Number',
+  description: '',
+  x: 105,
+  y: 105,
+  type: 'Data',
+  dataType: 'text',
+  defaultValue: null,
+  private: true
+}
+Displayed 30 data items

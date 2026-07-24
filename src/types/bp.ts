@@ -1,6 +1,9 @@
 export type StageId = string;
 export type PageId = string;
 
+export const GLOBAL_SCOPE_ID = "global" as const;
+export type DataScopeId = PageId | typeof GLOBAL_SCOPE_ID;
+
 export const BP_DATA_TYPES = [
     "date",
     "datetime",
@@ -38,6 +41,7 @@ export const SINGLE_OUT_STAGE_TYPES = [
      "Recover",
      "Resume",
      "SubSheet",
+     "ChoiceEnd",
 ] as const
 
 export type SingleOutType = (typeof SINGLE_OUT_STAGE_TYPES)[number]
@@ -140,7 +144,7 @@ export interface CalculationStage extends SingleOutStage, CalculationStep {
 
 export interface MultiCalcStage extends SingleOutStage {
     type: "MultipleCalculation"
-    steps: CalculationStage[]
+    steps: CalculationStep[]
 }
 
 // need more research on loop stages. Not used as much as creating a loop through links and descisions
@@ -161,15 +165,17 @@ export interface AlertStage extends SingleOutStage {
 
 export interface RecoverStage extends SingleOutStage {
     type: "Recover",
-    overrideAttempts: number,
-    raiseToParent: boolean
+    overrideAttempts: number | null,
+    raiseToParent: boolean | null
 }
 
 export interface ResumeStage extends SingleOutStage {type: "Resume"}
 
 export interface SubSheetStage extends SingleOutStage {
     type: "SubSheet",
-    // TODO: continue here   
+    inputs: InputProp[] | null,
+    outputs: OutputProp[] | null,
+    destination: PageId
 }
 
 export interface NoOutStage extends BaseStage {
@@ -225,7 +231,7 @@ export interface DecisionStage extends BaseStage {
 export interface ChoiceBranch {
     label: string,
     condition?: string,
-    out: StageId
+    out: StageId | null
 }
 
 export const isDecisionStage = (stage: BluePrismStage): stage is DecisionStage => {
@@ -239,7 +245,13 @@ export const isChoiceStage = (stage: BluePrismStage): stage is ChoiceStage => {
 export interface ChoiceStage extends BaseStage {
     type: "Choice",
     branches: ChoiceBranch[]
-    defaultOut: StageId
+    defaultOut: StageId | null // uses groupId
+    unresolvedGroupId: StageId
+}
+
+export interface ChoiceEndStage extends SingleOutStage {
+    type: "ChoiceEnd"
+    groupId: StageId
 }
 
 export interface SubSheetInfoStage extends NoOutStage {
@@ -256,6 +268,7 @@ export interface UnknownStage extends NoOutStage {
 export type BluePrismStage = 
     | DecisionStage
     | ChoiceStage
+    | ChoiceEndStage
     | StartStage
     | ProcessStage
     | ActionStage
@@ -275,6 +288,8 @@ export type BluePrismStage =
     | NoOutStage
     | SingleOutStage
 
+export type SingleOutBluePrismStage = Extract<BluePrismStage, {out: StageId | null}>
+
 export interface ProcessPage {
     id: PageId,
     name: string,
@@ -292,12 +307,12 @@ export interface ProcessGraph {
     pagesById: Record<PageId, ProcessPage>,
     stagesById: Record<StageId, BluePrismStage>,
     links: StageLink[]
-    dataMap: Record<string, StageId> //link the name to the stageID for reference
+    dataMap: Record<DataScopeId, Record<string, StageId>> //link the name to the stageID for reference
 }
 
 export interface StageLink {
     from: StageId,
-    to: StageId,
+    to: StageId | null,
     label?: string,
     condition?: string,
     pageId: PageId
