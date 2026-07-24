@@ -1,0 +1,27 @@
+
+> rpa-migration-factory@1.0.0 dev
+> tsx src/index.ts
+
+Parsed Process: Create Orders
+Pages discoverd: 6
+	- not including 1 synthetic safety page
+Stages discoverd: 75
+Links discovered: 39
+Data items discovered: 18
+	- includes 0 global data items
+
+Page breakdown:
+┌─────────┬────────────────────────────────────────┬───────────────────────────┬────────┬───────┬───────────┐
+│ (index) │ id                                     │ name                      │ stages │ links │ dataItems │
+├─────────┼────────────────────────────────────────┼───────────────────────────┼────────┼───────┼───────────┤
+│ 0       │ 'main'                                 │ 'Main'                    │ 15     │ 7     │ 3         │
+│ 1       │ 'orphaned'                             │ 'Orphaned / Unknown Page' │ 0      │ 0     │ 0         │
+│ 2       │ 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4' │ 'Process Queue'           │ 19     │ 13    │ 3         │
+│ 3       │ '391141aa-d069-49c3-ac0f-5ff4c235bef3' │ 'Input Order'             │ 12     │ 4     │ 6         │
+│ 4       │ '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca' │ 'Open Centrix'            │ 12     │ 6     │ 2         │
+│ 5       │ '342fe0f0-9122-414d-a89b-f186b28fd59e' │ 'Close Centrix'           │ 5      │ 3     │ 0         │
+│ 6       │ '8bc6ed8d-112a-4720-b289-054f2b5ce279' │ 'Pull Excel Data'         │ 12     │ 6     │ 4         │
+└─────────┴────────────────────────────────────────┴───────────────────────────┴────────┴───────┴───────────┘
+-------
+
+debugging:

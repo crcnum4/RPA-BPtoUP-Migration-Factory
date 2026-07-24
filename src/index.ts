@@ -24,8 +24,8 @@ const parser = new XMLParser({
 
 
 const main = async (): Promise<void> => {
-    // const xml = await readBluePrismFile("./src/test/testFile.bpprocess");
-    const xml = await readBluePrismFile("./src/test/templateTestFile.bpprocess");
+    const xml = await readBluePrismFile("./src/test/testFile.bpprocess");
+    // const xml = await readBluePrismFile("./src/test/templateTestFile.bpprocess");
     const parsedData = parser.parse(xml);
     // console.log(parsedData.process.subsheet)
 
