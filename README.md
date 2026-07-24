@@ -14,6 +14,32 @@ The goal is to reduce the manual discovery burden by turning legacy process expo
 
 ---
 
+## How To Run Current Version
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Configure the input file:**
+   Open `index.ts` and navigate to line 27. Edit the loaded file path as needed.
+   ```typescript
+   // TODO: change to command line argument in future update
+   const xml = await readBluePrismFile('path/to/your/bpprocess-file.bpprocess');
+   ```
+
+3. **Run the development script:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Output to an external file (optional):**
+   ```bash
+   npm run dev > output.txt
+   ```
+
+   *Note: There are two test files in `/src/test` for reference.*
+
 ## Project Goals
 
 RPA Migration Factory is built to demonstrate:
@@ -302,7 +328,7 @@ The first version of this project focuses on a working command-line analyzer.
 npm run analyze samples/blueprism/customer-update.bpprocess
 ```
 
-### Example Output
+### Planned Example Output
 
 ```text
 ✓ Parsed process: Customer Address Update
@@ -325,6 +351,31 @@ Generated:
 ```
 
 ---
+
+## Current Actual Output Example
+
+```text
+Parsed Process: Create Orders
+Pages discoverd: 6
+	- not including 1 synthetic safety page
+Stages discoverd: 75
+Links discovered: 39
+Data items discovered: 18
+	- includes 0 global data items
+
+Page breakdown:
+┌─────────┬────────────────────────────────────────┬───────────────────────────┬────────┬───────┬───────────┐
+│ (index) │ id                                     │ name                      │ stages │ links │ dataItems │
+├─────────┼────────────────────────────────────────┼───────────────────────────┼────────┼───────┼───────────┤
+│ 0       │ 'main'                                 │ 'Main'                    │ 15     │ 7     │ 3         │
+│ 1       │ 'orphaned'                             │ 'Orphaned / Unknown Page' │ 0      │ 0     │ 0         │
+│ 2       │ 'a2715f2e-bcb8-48e0-ad26-f487787ad2f4' │ 'Process Queue'           │ 19     │ 13    │ 3         │
+│ 3       │ '391141aa-d069-49c3-ac0f-5ff4c235bef3' │ 'Input Order'             │ 12     │ 4     │ 6         │
+│ 4       │ '1c8b0b6e-bf46-4c44-87b6-6a6cba7830ca' │ 'Open Centrix'            │ 12     │ 6     │ 2         │
+│ 5       │ '342fe0f0-9122-414d-a89b-f186b28fd59e' │ 'Close Centrix'           │ 5      │ 3     │ 0         │
+│ 6       │ '8bc6ed8d-112a-4720-b289-054f2b5ce279' │ 'Pull Excel Data'         │ 12     │ 6     │ 4         │
+└─────────┴────────────────────────────────────────┴───────────────────────────┴────────┴───────┴───────────┘
+```
 
 ## Planned Repository Structure
 
